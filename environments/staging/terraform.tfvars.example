@@ -1,0 +1,60 @@
+# -------------------------------------------------------------------
+# Proxmox connection
+# -------------------------------------------------------------------
+
+# Example:
+# proxmox_endpoint = "https://192.168.1.10:8006/"
+proxmox_endpoint = "https://REPLACE_WITH_YOUR_PROXMOX_IP_OR_DNS:8006/"
+
+# Format:
+# user@realm!tokenid=secret
+#
+# Example:
+# proxmox_api_token = "terraform@pve!kp-terraform=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+proxmox_api_token = "REPLACE_WITH_YOUR_PROXMOX_API_TOKEN"
+
+# Set true if Proxmox uses a self-signed certificate.
+proxmox_insecure = true
+
+# SSH user on the Proxmox host.
+# For many home labs this is root.
+proxmox_ssh_username = "root"
+
+# -------------------------------------------------------------------
+# Proxmox node/storage/network settings
+# -------------------------------------------------------------------
+
+# Proxmox node name shown in the Proxmox UI.
+proxmox_node_name = "REPLACE_WITH_YOUR_PROXMOX_NODE_NAME"
+
+# Storage where the Ubuntu cloud image will be downloaded.
+image_datastore_id = "local"
+
+# Storage where VM disks will be created.
+vm_datastore_id = "local-lvm"
+
+# Storage where cloud-init snippet files will be uploaded.
+# This storage must have Snippets enabled in Proxmox.
+snippet_datastore_id = "local"
+
+# Storage used for the VM cloud-init drive.
+cloud_init_datastore_id = "local-lvm"
+
+# Proxmox network bridge.
+network_bridge = "vmbr0"
+
+# -------------------------------------------------------------------
+# VM login settings
+# -------------------------------------------------------------------
+
+# Linux username created inside each Ubuntu VM.
+ssh_username = "ubuntu"
+
+# Paste your real SSH public key here.
+# Later you can view it with:
+# cat ~/.ssh/id_ed25519.pub
+ssh_public_keys = [
+  "REPLACE_WITH_YOUR_SSH_PUBLIC_KEY"
+]
+
+timezone = "America/Los_Angeles"
