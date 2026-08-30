@@ -1,0 +1,36 @@
+name: Markdown Check
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  markdown-check:
+    name: Check Markdown Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show Markdown files
+        run: find . -name "*.md" -type f | sort
+
+      - name: Check for empty Markdown files
+        run: |
+          empty_files=$(find . -name "*.md" -type f -empty)
+
+          if [ -n "$empty_files" ]; then
+            echo "Empty Markdown files found:"
+            echo "$empty_files"
+            exit 1
+          fi
+
+          echo "No empty Markdown files found."
