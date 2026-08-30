@@ -1,0 +1,38 @@
+#cloud-config
+hostname: ${hostname}
+manage_etc_hosts: true
+timezone: ${timezone}
+
+users:
+  - default
+  - name: ${ssh_username}
+    groups:
+      - adm
+      - sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: true
+    ssh_authorized_keys:
+%{ for key in ssh_public_keys ~}
+      - ${key}
+%{ endfor ~}
+
+package_update: true
+package_upgrade: false
+
+packages:
+  - qemu-guest-agent
+  - curl
+  - wget
+  - vim
+  - jq
+  - net-tools
+  - ca-certificates
+  - gnupg
+  - lsb-release
+  - apt-transport-https
+
+runcmd:
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent
+  - echo "cloud-init completed for ${hostname}" > /var/log/kp-cloud-init.done
